@@ -1,11 +1,5 @@
-const express = require('express');
-const app = express();
-const port = 8010;
+const app = require('./config/server_config');
 
-app.get('/', (req, res)=>{
-    return res.status(200).json({success : true, message : 'Home Route'});
-});
-
-app.listen(port,()=>{
-    console.log(`server started http://localhost:${port}`);
+app.listen(Number(process.env.SERVER_PORT),()=>{
+    console.log(`server started http://localhost:${Number(process.env.SERVER_PORT)}`)
 })
