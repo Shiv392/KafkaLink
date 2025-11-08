@@ -2,6 +2,9 @@ const signup_model = require('../models/signup_model');
 
 const signup_controller = async(req, res)=>{
 const {name, email, password} = req.body;
+if(!name || !email || !password){
+    return res.status(400).json({error : 'Name, email and password required'});
+}
 try{
 const {user_exits, new_user} = await signup_model(name, email, password);
 if(user_exits){
