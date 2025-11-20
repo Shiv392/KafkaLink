@@ -9,10 +9,10 @@ const sequelize = new Sequelize(
         dialect : 'mysql',
         logging : false,
         pool : {
-            min : 0,
-            max : 5, 
-            acquire : 30000,
-            idle : 10000
+            min : 0, // Minimum number of connections in the pool
+            max : 5,  // Maximium number of connectin in the pool
+            acquire : 30000, // Maximum time to acquire connection 
+            idle : 10000 //Maximum time a connnection can be idle before being released 
         },
         define : {
             timestamps : true,
@@ -20,18 +20,5 @@ const sequelize = new Sequelize(
         }
     }
 )
-
-const test_connection = async()=>{
-    try{
-     await sequelize.authenticate();
-     console.log('db connection successfull');
-    }
-    catch(err){
-        console.log('error occured while auth service db connection', err);
-    }
-}
-
-test_connection();
-
 
 module.exports = sequelize;
