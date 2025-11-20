@@ -13,7 +13,7 @@ return {status : 404}
 const user_password = user.dataValues.user_password;
 const match = await bcrypt_compare(password, user_password);
 if(match){
-    return {status : 200};
+    return {status : 200, user : {name : user.user_name, user_id : user.user_id, email : user.user_email}};
 }
 else {
     return {status : 401};
