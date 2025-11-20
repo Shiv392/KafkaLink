@@ -10,8 +10,11 @@ app.use(cors());
 
 const db_initialize = require('../db_init');
 const url_schema = require('../db_schema/url_schema');
+const url_routes = require('../routes/index');
 
 db_initialize();
+
+app.use(url_routes);
 
 app.get('/url', (req, res)=>{
     return res.status(200).send(`<h1>This is URL Page </h1>`)
