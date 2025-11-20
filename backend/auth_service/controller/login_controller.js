@@ -18,6 +18,12 @@ const login_controller = async (req, res) => {
             jwt_encrypt(jwt_payload)
                 .then((token) => {
                     user = {...user, token : token};
+                    res.cookie('token', token, {
+                        maxAge : 24*60*60*1000,
+                        httpOnly : true,
+                        secure : true,
+                        sameSite : 'strict'
+                    })
                     return res.status(200).json({
                         message: "Login Successfull",
                         user: user
