@@ -1,20 +1,19 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db_config');
 
-const user_schema = sequelize.define('user', {
+const user_schema = sequelize.define('user', { //here user will used as reference foreignt key 
     user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true,
-        unique: true
+        autoIncrement: true
     },
     user_name: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING(100),
         allowNull: false
     },
     user_email: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING(100),
         allowNull: false,
         unique: true,
         validate: {
@@ -22,13 +21,18 @@ const user_schema = sequelize.define('user', {
         }
     },
     user_password: {
-        type: DataTypes.STRING(),
+        type: DataTypes.STRING(255),
         allowNull: true
     },
 },
     {
         tableName: 'user',
-        timestamps: true
+        timestamps: true,
+        indexes : [
+            {
+                unique : true, fields : ['user_email']
+            }
+        ]
     }
 );
 
