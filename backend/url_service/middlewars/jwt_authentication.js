@@ -1,19 +1,18 @@
 const jwt_verify = require("../utils/jwt_verify");
 
 const jwt_authentication = async (req, res, next) => {
-  console.log("req---->", req);
   const auth_token = req.cookies.token;
   if (!auth_token) {
-    return res.status(400).json({
+    return res.status(401).json({
       success: false,
       message: "Unauthenticated user, please logged in",
     });
   }
 
   const verify = await jwt_verify(auth_token);
-  console.log("verify ---->", verify);
-
   if (verify) {
+    //append user_id and email address for the next request body
+    req.user_id = verify.id;
     next();
   } else {
     return res.status(400).json({
@@ -21,8 +20,6 @@ const jwt_authentication = async (req, res, next) => {
       message: "Unauthenticated user, please logged in",
     });
   }
-
-  next();
 };
 
 module.exports = jwt_authentication;
