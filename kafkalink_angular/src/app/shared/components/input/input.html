@@ -1,1 +1,24 @@
-<p>input works!</p>
+<div class="input-wrapper">
+
+  <label *ngIf="label">{{ label }}</label>
+
+  <input
+    pInputText
+    class="w-full"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [ngModel]="value"
+    (ngModelChange)="onChange($event)"
+    (blur)="onTouched()"
+  />
+
+  <!-- Auto Validation Messages -->
+  <div class="error" *ngIf="control?.invalid && control?.touched">
+    <small *ngIf="control?.errors?.['required']">This field is required</small>
+    <small *ngIf="control?.errors?.['email']">Invalid email format</small>
+    <small *ngIf="control?.errors?.['minlength']">
+      Minimum length is {{ control?.errors?.['minlength'].requiredLength }}
+    </small>
+  </div>
+
+</div>

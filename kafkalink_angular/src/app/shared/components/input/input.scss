@@ -1,0 +1,16 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.error small {
+  color: #dc2626;
+  margin-top: 4px;
+  display: block;
+}
