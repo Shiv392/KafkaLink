@@ -1,35 +1,33 @@
 import { Component, Input, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
-  selector: 'app-input',
+  selector: 'app-password-input',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputTextModule],
-  templateUrl: './input.html',
-  styleUrls: ['./input.scss'],
+  imports: [CommonModule, FormsModule, PasswordModule],
+  templateUrl: './input-password.html',
+  styleUrls: ['./input-password.scss'],
 })
-export class InputComponent implements ControlValueAccessor {
+export class PasswordInputComponent implements ControlValueAccessor {
 
   @Input() label: string = '';
-  @Input() placeholder: string = '';
-  @Input() type? : string = 'input';
+  @Input() placeholder?: string = '';
 
   value: any = '';
   disabled = false;
 
-  // Callbacks
+  // CVA callbacks
   onChange = (value: any) => {};
   onTouched = () => {};
 
   constructor(@Optional() @Self() public ngControl: NgControl) {
     if (this.ngControl) {
-      this.ngControl.valueAccessor = this; // ← IMPORTANT (no circular DI)
+      this.ngControl.valueAccessor = this;  // NO circular DI
     }
   }
 
-  // CVA Methods
   writeValue(value: any): void {
     this.value = value;
   }
@@ -46,7 +44,6 @@ export class InputComponent implements ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  // Getter for parent FormControl
   get control() {
     return this.ngControl?.control;
   }

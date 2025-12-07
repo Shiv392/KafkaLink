@@ -1,0 +1,4 @@
+button {
+  @apply w-full bg-green-400 text-white font-semibold py-2 rounded-lg 
+         hover:bg-green-500 transition cursor-pointer disabled:bg-gray-300;
+}

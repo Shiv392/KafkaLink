@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class Button {
 @Input() label? : string;
-@Input() disabled? : boolean;
+@Input() disabled? : boolean = false;
 @Input() icon? : string
 
 @Output() btn_event = new EventEmitter<any>();

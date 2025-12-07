@@ -1,5 +1,48 @@
-<form [formGroup]="login_form">
-    <div>
-        <app-input [label]="'Enter Email'" formControlName="email"></app-input>
-    </div>
-</form>
+<div class="flex flex-col items-center justify-center min-h-screen w-full bg-gray-900 px-4">
+
+  <div class="w-full max-w-md bg-gray-800 rounded-xl shadow-lg p-8">
+
+    <h2 class="text-3xl font-bold text-gray-100 mb-6 text-center">Login</h2>
+
+    <form [formGroup]="login_form" class="flex flex-col space-y-5">
+
+      <!-- Email -->
+      <app-input
+        label="Email address"
+        type="'email'"
+        placeholder="Enter your email"
+        formControlName="email"
+      ></app-input>
+
+      <!-- Password -->
+      <app-password-input
+        label="Password"
+        placeholder="Enter your password"
+        formControlName="password"
+      ></app-password-input>
+
+      <!-- Remember + Forgot -->
+      <div class="flex items-center justify-end mt-1">
+
+        <a href="#" class="text-sm text-blue-400 hover:underline">
+          Forgot password?
+        </a>
+      </div>
+
+      <!-- Signup Link -->
+      <p class="text-gray-300 text-sm text-center">
+        Don't have an account?
+        <a href="#" class="text-blue-400 hover:underline">Signup</a>
+      </p>
+
+      <!-- Button -->
+      <app-button
+        label="Login"
+        [disabled]="login_form.invalid"
+        class="w-full bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-semibold py-3 rounded-md shadow hover:opacity-90 transition"
+      ></app-button>
+
+    </form>
+  </div>
+
+</div>
