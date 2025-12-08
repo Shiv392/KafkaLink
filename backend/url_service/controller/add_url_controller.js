@@ -3,7 +3,6 @@ const add_url_model = require('../models/add_url_model');
 const add_url_controller = async(req, res)=>{
 const {url, url_password} = req.body;
 const user_id = req.user_id;
-console.log('user id--->', req.user);
 try{
 const result = await add_url_model({ url, user_id, password: url_password });
 const { status_code, message, data } = result;
