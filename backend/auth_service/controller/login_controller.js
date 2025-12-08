@@ -9,38 +9,37 @@ const login_controller = async (req, res) => {
 
     try {
         let { status, user } = await login_model(email, password);
-
-        if (status == 200) {
-            const jwt_payload = {
-                email: user.email,
-                id: user.user_id,
-            };
-            jwt_encrypt(jwt_payload)
-                .then((token) => {
-                    user = {...user, token : token};
-                    res.cookie('token', token, {
-                        maxAge : 24*60*60*1000,
-                        httpOnly : true,
-                        secure : true,
-                        sameSite : 'strict'
-                    })
-                    return res.status(200).json({
-                        message: "Login Successfull",
-                        user: user
-                    });
-                })
-                .catch((err) => {
-                    throw new Error(err);
-                });
-        } else if (status == 404) {
-            return res.status(404).json({
-                message: "User not exists",
-            });
-        } else if (status == 401) {
-            return res.status(401).json({
-                message: "Password not matched ",
-            });
+        if (status != 200) {
+            return res.status(status).json({
+                message: status == 401 ? 'Password not matched' : status == 404 ? 'Email not valid' : ''
+            })
         }
+
+        const access_token_payload = {
+            email: user.email,
+            id: user.user_id,
+        };
+        const access_token = await jwt_encrypt({ payload: access_token_payload, expire_time: '24h' });
+        const refresh_token = await jwt_encrypt({ payload: access_token_payload, expire_time: '720h' });
+
+        res.cookie('refresh_token', refresh_token, {
+            httpOnly: true,
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            secure: process.env.NODE_ENV == 'production', //if we put secure true it will only share cookie for https request 
+            //not for localhost runing on http host. 
+            sameSite: 'strict'
+        });
+        res.cookie('access_token', access_token, {
+            httpOnly: true,
+            maxAge: 10* 1000,
+            secure: process.env.NODE_ENV == 'production',
+            sameSite: 'strict'
+        });
+        user = { ...user, access_token: access_token };
+        return res.status(200).json({
+            message: 'Login Succesfull',
+            user: user
+        })
     } catch (err) {
         return res.status(500).json({
             error: err,

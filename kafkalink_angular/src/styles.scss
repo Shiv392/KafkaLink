@@ -1,7 +1,119 @@
+/* ---------------------------
+   Tailwind Base Setup
+---------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-// @use "primeng/resources/themes/lara-light-blue/theme.css";
-// @use "primeng/resources/primeng.css";
-// @use "primeicons/primeicons.css";
+/* ---------------------------
+   Reusable Classes (Production Ready)
+---------------------------- */
+
+/* styles.css (global) */
+.app-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* -------- Layout -------- */
+.container-page {
+  @apply max-w-7xl mx-auto px-4 md:px-6;
+}
+
+.section {
+  @apply py-6 md:py-10;
+}
+
+/* Flex Layout Helpers */
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex items-center justify-between;
+}
+
+/* ------- Typography ------- */
+.heading-1 {
+  @apply text-4xl font-bold text-gray-900;
+}
+
+.heading-2 {
+  @apply text-3xl font-semibold text-gray-900;
+}
+
+.heading-3 {
+  @apply text-2xl font-semibold text-gray-900;
+}
+
+.text-muted {
+  @apply text-gray-500 text-sm;
+}
+
+/* -------- Cards -------- */
+.card {
+  @apply bg-white shadow rounded-xl p-5 border border-gray-200;
+}
+
+.card-hover {
+  @apply transition-all hover:shadow-lg hover:-translate-y-1;
+}
+
+/* ------ Inputs ------- */
+.input {
+  @apply w-full px-3 py-2 border rounded-lg border-gray-300 
+         focus:outline-none focus:ring-2 focus:ring-blue-500
+         bg-white;
+}
+
+/* Input Error */
+.input-error {
+  @apply border-red-500 ring-red-500 ring-2;
+}
+
+/* ------ Buttons ------- */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-all disabled:opacity-50;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-outline {
+  @apply border border-blue-600 text-blue-600 hover:bg-blue-50;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700;
+}
+
+/* ------- Badges -------- */
+.badge {
+  @apply inline-block px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-700;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-700;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-700;
+}
+
+/* -------- Grid Helpers -------- */
+.grid-2 {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.grid-3 {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-5;
+}
+
+.grid-4 {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
