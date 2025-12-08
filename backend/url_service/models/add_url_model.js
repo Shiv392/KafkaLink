@@ -33,7 +33,6 @@ const add_url_model = async ({ url, password, user_id }) => {
          return { status_code: 500, message: "URL not created" };
     }
     catch (err) {
-        console.log('error---->', err);
        if (err.name === 'SequelizeUniqueConstraintError') {
             return { status_code: 409, message: 'URL already exists' };
         }
