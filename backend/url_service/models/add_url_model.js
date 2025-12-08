@@ -1,5 +1,6 @@
 const url_schema = require('../db_schema/url_schema');
 const uuid_code = require('../utils/uuid_generate');
+const redis_client = require('../config/redis_config');
 
 const add_url_model = async ({ url, password, user_id }) => {
     try {
@@ -19,6 +20,9 @@ const add_url_model = async ({ url, password, user_id }) => {
             user_id : user_id
         });
         if (new_url) {
+            //set new key into the redis for count 
+            const redis_key = `url:code:${url_code}`;
+            await redis_client.set(redis_key, 0);
             return {
                 status_code: 201,
                 message: 'URL has been added',

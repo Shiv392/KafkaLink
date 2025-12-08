@@ -9,7 +9,10 @@ const redirect_url_controller = async(req, res)=>{
         return res.status(404).json({success : false, error : message});
     }
     if(status_code == 200){
-        return  res.redirect(302, data.url)
+        return  res.status(200).json({
+            success : true,
+            data : data.url
+        })
     }
     }
     catch(err){
