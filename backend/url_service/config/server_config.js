@@ -11,6 +11,7 @@ app.use(cors());
 app.use(cookie_parser());
 
 const db_initialize = require('../db_init');
+require('../redis_init');
 
 const jwt_authentication = require('../middlewars/jwt_authentication');
 const url_schema = require('../db_schema/url_schema');
