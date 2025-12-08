@@ -21,15 +21,4 @@ const sequelize = new Sequelize(
     }
 );
 
-// async function test_dbconfig(){
-// try{
-// await sequelize.authenticate();
-// console.log('url service db connection done 😊');
-// }
-// catch(err){
-// console.log('url service db connnection error 🤣🤣🤣🤣🤣', err);
-// }
-// }
-// test_dbconfig();
-
 module.exports = sequelize;
