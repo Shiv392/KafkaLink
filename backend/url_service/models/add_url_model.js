@@ -1,6 +1,7 @@
 const url_schema = require('../db_schema/url_schema');
 const uuid_code = require('../utils/uuid_generate');
 const redis_client = require('../config/redis_config');
+const bcrypt = require('bcrypt');
 
 const add_url_model = async ({ url, password, user_id }) => {
     try {
@@ -13,9 +14,13 @@ const add_url_model = async ({ url, password, user_id }) => {
         }
          
         const url_code = uuid_code(15);
+        let url_password = password || '';
+        if(typeof url_password == 'string' && url_password.trim().length>0){
+            url_password = await bcrypt.hash(url_password, Number(process.env.BCRYPT_HASHVALUE));
+        }
         const new_url = await url_schema.create({
             url : url,
-            url_password: password || '',
+            url_password: url_password || '',
             short_code: url_code,
             user_id : user_id
         });
