@@ -1,4 +1,7 @@
 export const environment = {
     production : false,
-    service_host : 'http://localhost:8001'
+    api : {
+        auth : 'http://localhost:8001',
+        url : 'http://localhost:8002'
+    }
 }
