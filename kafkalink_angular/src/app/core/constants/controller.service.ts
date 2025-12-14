@@ -6,8 +6,8 @@ import { Injectable } from "@angular/core";
 
 export class Controllers {
 
-    public readonly authentication = {
-        login: 'http://8001/login',
-        signup: 'http://8002/signup'
-    };
+    public authentication = {
+        'login' : 'auth/login',
+        'signup' : 'auth/signup'
+    }
 }

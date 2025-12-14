@@ -13,7 +13,7 @@ export class SignupService{
     public controller = inject(Controllers);
 
     public signup(apibody : {name : string, email : string, password : string}) : Observable<{success : boolean, message : string}>{
-    const url = environment.service_host+this.controller.authentication.signup;
+    const url = environment.api.auth+this.controller.authentication.signup;
     return this.http.post<any>(url, apibody).pipe(
         catchError((error : HttpErrorResponse)=>{
             return throwError(()=> error.error)

@@ -14,7 +14,7 @@ export class LoginService{
     public http = inject(HttpClient);
 
     public login(apibody : {email : string, password : string}) : Observable<{success : boolean, message : string}>{
-        const url = environment.service_host + this.controller.authentication.login;
+        const url = environment.api.auth + this.controller.authentication.login;
         return this.http.post<any>(url, apibody).pipe(
             catchError((error : HttpErrorResponse)=>{
                 return throwError(()=> error.error)
