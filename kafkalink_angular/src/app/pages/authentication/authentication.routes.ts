@@ -4,9 +4,9 @@ import { Signup } from "./components/signup/signup";
 
 export const authenticaion_routes : Routes = [
     {
-        path : 'login', component : Login
+        path : 'login', loadComponent : ()=> import('./components/login/login').then(component=> component.Login)
     },
     {
-        path : 'signup', component : Signup
+        path : 'signup', loadComponent : ()=> import('./components/signup/signup').then(component=> component.Signup)
     }
 ]
