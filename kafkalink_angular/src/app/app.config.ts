@@ -5,10 +5,14 @@ import Aura from '@primeuix/themes/aura';
 
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTPInterceptor } from './core/interceptors/http-interceptor';
+import { ErrorInterceptor } from './core/interceptors/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withInterceptors([HTTPInterceptor])),
+    provideHttpClient(withInterceptors([ErrorInterceptor])),
     provideRouter(routes),
     provideHttpClient(),
     providePrimeNG({
