@@ -1,1 +1,83 @@
-<p>common-table works!</p>
+<div class="table-container w-full h-full min-h-0 flex flex-col">
+    <div class="w-full min-h-0 flex-1 flex flex-col" style="max-height: calc(100vh - 200px);">
+        <div class="flex-1 min-h-0 w-full rounded-lg !border !border-surface-200 !rounded-lg overflow-hidden">
+
+            <ng-container *ngIf="this.table_values; else show_loader">
+                <p-table [value]="this.table_values" class="w-full" [scrollable]="true" scrollHeight="flex">
+
+                    <!-- Table Header -->
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="border-b border-surface-300">
+                            <th class="!bg-slate-100 !p-2 !border-r border-surface-300 option-label !font-medium"
+                                *ngIf="display_columns?.length" style="width: 3rem">Sn</th>
+                            <th class="!bg-slate-100 !p-2 !border-r border-surface-300"
+                                *ngFor="let col of display_columns">
+                                <ng-container>
+                                    <span class="heading-label">{{ column_labels[col] }}</span>
+                                </ng-container>
+                            </th>
+                        </tr>
+                    </ng-template>
+
+                    <!-- Table Body -->
+                    <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                        <tr class="border-b border-gray-200">
+                            <td
+                                class="!p-0 !w-14 bg-surface-100 !border-r !border-surface-300 text-center align-middle">
+                                <div class="flex items-center gap-2 pr-1">
+                                    <span pReorderableRowHandle
+                                        class="ti ti-grip-vertical text-[1.6rem] ml-0 cursor-grab"></span>
+                                    <span class="option-label">{{i+1}}</span>
+                                </div>
+                            </td>
+
+                            <!-- Dynamic Columns -->
+                            <td class="!p-2 !border-r border-surface-200 text-surface-900"
+                                *ngFor="let col of display_columns">
+                                <ng-container [ngSwitch]="col">
+                                    <!-- Calendar Integrated -->
+                                    <ng-container *ngSwitchCase="'short_link'">
+                                       {{ rowData.short_link }}
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="'original_url'">
+                                        {{ rowData.original_url }}
+                                     </ng-container>
+
+                                     <ng-container *ngSwitchCase="'visited_count'">
+                                        {{ rowData.visited_count }}
+                                     </ng-container>
+
+                                    <ng-container *ngSwitchCase="'Actions'">
+                                        <h3>Action Column </h3>
+                                    </ng-container>
+
+                                </ng-container>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+
+                    <!-- Empty Message -->
+                    <ng-template pTemplate="emptymessage">
+                        <tr class="!border-0">
+                            <td [attr.colspan]="display_columns.length + 1" class="!border-0">
+                                <div class="text-center py-2 h-12 align-middle">
+                                    <div class="text-surface-500 dark:text-surface-400 text-lg font-medium">No records found</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-container>
+
+            <ng-template #show_loader>
+                <div class="w-full h-full">
+                    <h3>Loading ..... </h3>
+                </div>
+            </ng-template>
+
+        </div>
+    </div>
+</div>
