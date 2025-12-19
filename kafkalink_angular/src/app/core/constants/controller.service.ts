@@ -10,4 +10,7 @@ export class Controllers {
         'login' : 'auth/login',
         'signup' : 'auth/signup'
     }
+    public url_dashboard = {
+        'urls' : '/app/url'
+    }
 }
