@@ -7,8 +7,8 @@ import { Injectable } from "@angular/core";
 export class Controllers {
 
     public authentication = {
-        'login' : 'auth/login',
-        'signup' : 'auth/signup'
+        'login' : '/auth/login',
+        'signup' : '/auth/signup'
     }
     public url_dashboard = {
         'urls' : '/app/url'

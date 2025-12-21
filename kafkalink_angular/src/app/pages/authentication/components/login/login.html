@@ -4,7 +4,7 @@
 
     <h2 class="text-3xl font-bold text-gray-100 mb-6 text-center">Login</h2>
 
-    <form [formGroup]="login_form" class="flex flex-col space-y-5">
+    <form [formGroup]="login_form" class="flex flex-col space-y-5" (ngSubmit)="save_login()">
 
       <!-- Email -->
       <app-input
@@ -37,8 +37,9 @@
 
       <!-- Button -->
       <app-button
-        label="Login"
+        [label]="login_form.valid ? 'Valid' : 'Invalid'"
         [disabled]="login_form.invalid"
+        (btn_event)="btn_event($event)"
         class="w-full bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-semibold py-3 rounded-md shadow hover:opacity-90 transition"
       ></app-button>
 
