@@ -17,6 +17,6 @@ export class Button {
 constructor(){}
 
 public click(){
-  this.btn_event.emit('shivsoni')
+  this.btn_event.emit('click')
 }
 }
