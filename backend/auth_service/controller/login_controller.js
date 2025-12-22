@@ -1,9 +1,9 @@
+const { path } = require("../config/server_config");
 const login_model = require("../models/login_model");
 const jwt_encrypt = require("../utils/jwt_encrypt");
 
 const login_controller = async (req, res) => {
     const { email, password } = req.body;
-    console.log('email--->', email, 'password---->', password)
     if (!email || !password) {
         return res.status(400).json({ error: "Email and password required" });
     }
@@ -26,15 +26,17 @@ const login_controller = async (req, res) => {
         res.cookie('refresh_token', refresh_token, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            secure: process.env.NODE_ENV == 'production', //if we put secure true it will only share cookie for https request 
+            secure: false, //if we put secure true it will only share cookie for https request 
             //not for localhost runing on http host. 
-            sameSite: 'strict'
+            sameSite: 'lax',
+            path : '/'
         });
         res.cookie('access_token', access_token, {
             httpOnly: true,
-            maxAge: 10* 1000,
-            secure: process.env.NODE_ENV == 'production',
-            sameSite: 'strict'
+            maxAge: 24 * 60 * 60 * 1000,
+            secure: false,
+            sameSite: 'lax',
+            path : '/'
         });
         user = { ...user, access_token: access_token };
         return res.status(200).json({
