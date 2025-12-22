@@ -50,6 +50,7 @@ export class Signup implements OnInit, OnDestroy {
     const subscribe = this.signup_service.signup(apibody).subscribe({
       next: (res) => {
           this.notification_service.notification_subject.next({ type: 'success', detail: res.message, summary: 'Success' });
+          this.signup_form.reset();
       },
       error: () => {
 
