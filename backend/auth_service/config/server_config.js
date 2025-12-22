@@ -5,7 +5,10 @@ const dotenv = require('dotenv');
 const cookie_parser = require('cookie-parser');
 dotenv.config();
 
-app.use(cors());
+app.use(cors({
+    origin : 'http://localhost:4200', // exact frontend url 
+    credentials : true //allow cookies to be sent/recieve 
+}));
 app.use(express.json()); //for json request 
 app.use(express.urlencoded({extended : true})); //for form submission 
 app.use(cookie_parser()); //allowing to access cookie data from the request 

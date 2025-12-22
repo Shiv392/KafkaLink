@@ -11,7 +11,10 @@ export const ErrorInterceptor : HttpInterceptorFn = (req, next) => {
     catchError((error : HttpErrorResponse)=>{
       let message : string = '';
       console.log('error--->', error);
-     if(error.error?.message){
+    if(error.error && error.error.error){
+      message = error.error.error
+    }
+    else if(error.error?.message){
       message = error.error.message
      }
      else if(typeof error.error == 'string'){

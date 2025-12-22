@@ -15,7 +15,7 @@ const user_schema = sequelize.define('user', { //here user will used as referenc
     user_email: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        unique: true,
+        // unique: true,
         validate: {
             isEmail: true
         }
@@ -30,7 +30,7 @@ const user_schema = sequelize.define('user', { //here user will used as referenc
         timestamps: true,
         indexes : [
             {
-                unique : true, fields : ['user_email']
+                unique : true, fields : ['user_email'], name : 'user_email_index'
             }
         ]
     }
