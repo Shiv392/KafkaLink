@@ -3,10 +3,12 @@ import { TableDataService } from '../../services/table_data.service';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-common-table',
-  imports: [CommonModule, FormsModule,TableModule],
+  imports: [CommonModule, FormsModule,TableModule, ButtonModule, TooltipModule],
   templateUrl: './common-table.html',
   styleUrl: './common-table.scss'
 })
@@ -25,7 +27,7 @@ export class CommonTable implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['table_data']){
-      if(this.table_data){
+      if(this.table_data && this.table_data.length>0){
         this.table_values = [...this.table_data];
         const {column_labels, display_columns} = this.table_data_servie.get_dynamic_columns(this.table_values[0], ['url_id','updated'], 'Actions');
         this.column_labels = column_labels;

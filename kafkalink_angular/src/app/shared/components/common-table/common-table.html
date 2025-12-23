@@ -37,19 +37,27 @@
                                 <ng-container [ngSwitch]="col">
                                     <!-- Calendar Integrated -->
                                     <ng-container *ngSwitchCase="'short_code'">
-                                       {{ rowData.short_code }}
+                                        {{ rowData.short_code }}
                                     </ng-container>
 
                                     <ng-container *ngSwitchCase="'url'">
                                         {{ rowData.url }}
-                                     </ng-container>
+                                    </ng-container>
 
-                                     <ng-container *ngSwitchCase="'visited_count'">
+                                    <ng-container *ngSwitchCase="'visited_count'">
                                         {{ rowData.visited_count }}
-                                     </ng-container>
+                                    </ng-container>
 
                                     <ng-container *ngSwitchCase="'Actions'">
-                                        <h3>Action Column </h3>
+                                        <p-button icon="ti ti-edit text-surface-800"
+                                            styleClass="!bg-transparent !border !border-slate-200 !rounded-lg hover:!bg-slate-200 p-button-icon-only"
+                                            pTooltip="Edit" tooltipPosition="top">
+                                        </p-button>
+
+                                        <p-button icon="ti ti-trash text-red-500"
+                                            styleClass="!bg-transparent !border !border-slate-200 !rounded-lg hover:!bg-slate-200 p-button-icon-only"
+                                            pTooltip="Delete" tooltipPosition="top">
+                                        </p-button>
                                     </ng-container>
 
                                 </ng-container>
@@ -63,7 +71,8 @@
                         <tr class="!border-0">
                             <td [attr.colspan]="display_columns.length + 1" class="!border-0">
                                 <div class="text-center py-2 h-12 align-middle">
-                                    <div class="text-surface-500 dark:text-surface-400 text-lg font-medium">No records found</div>
+                                    <div class="text-surface-500 dark:text-surface-400 text-lg font-medium">No records
+                                        found</div>
                                 </div>
                             </td>
                         </tr>

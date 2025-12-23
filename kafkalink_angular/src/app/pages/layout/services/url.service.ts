@@ -15,9 +15,10 @@ export class URLService{
     public controller = inject(Controllers);
     public shared_service = inject(SharedService);
 
-    public get_urls() : Observable<get_urls_apimodel>{
+    public get_urls(apibody : any) : Observable<get_urls_apimodel>{
+    const params = this.shared_service.get_querystring_payload(apibody);
     const url = environment.api.url + this.controller.url_dashboard.urls;
-    return this.http.get<get_urls_apimodel>(url, {withCredentials : true}).pipe(
+    return this.http.get<get_urls_apimodel>(url, {params, withCredentials : true}).pipe(
         catchError((error : HttpErrorResponse)=>{
             return throwError(()=> error.error)
         })
