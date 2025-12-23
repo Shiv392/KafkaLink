@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { Controllers } from "../../../core/constants/controller.service";
 import { catchError, Observable, throwError } from "rxjs";
 import {environment} from '../../../../environments/environment';
+import { SharedService } from "../../../shared/services/shared.service";
 
 @Injectable({
     providedIn : 'root'
@@ -11,10 +12,11 @@ import {environment} from '../../../../environments/environment';
 export class URLService{
     public http = inject(HttpClient);
     public controller = inject(Controllers);
+    public shared_service = inject(SharedService);
 
     public get_urls() : Observable<any>{
-    const url = environment.api + this.controller.url_dashboard.urls;
-    return this.http.get(url).pipe(
+    const url = environment.api.url + this.controller.url_dashboard.urls;
+    return this.http.get(url, {withCredentials : true}).pipe(
         catchError((error : HttpErrorResponse)=>{
             return throwError(()=> error.error)
         })
@@ -23,7 +25,7 @@ export class URLService{
 
     public add_url(apibody : any) : Observable<any>{
     const url: string = environment.api + this.controller.url_dashboard.urls;
-    return this.http.post(url, apibody).pipe(
+    return this.http.post(url, apibody, {withCredentials : true}).pipe(
         catchError((error : HttpErrorResponse)=>{
             return throwError(()=> error.error)
         })
@@ -32,7 +34,7 @@ export class URLService{
 
     public edit_url(apibody : any) : Observable<any>{
         const url: string = environment.api + this.controller.url_dashboard.urls;
-        return this.http.patch(url, apibody).pipe(
+        return this.http.patch(url, apibody, {withCredentials : true}).pipe(
             catchError((error : HttpErrorResponse)=>{
                 return throwError(()=> error.error)
             })
@@ -41,7 +43,8 @@ export class URLService{
 
     public delete_url(apibody : any) : Observable<any>{
         const url: string = environment.api + this.controller.url_dashboard.urls;
-        return this.http.delete(url, apibody).pipe(
+        const params = this.shared_service.get_querystring_payload(apibody);
+        return this.http.delete(url, {params, withCredentials : true}).pipe(
             catchError((error : HttpErrorResponse)=>{
                 return throwError(()=> error.error)
             })

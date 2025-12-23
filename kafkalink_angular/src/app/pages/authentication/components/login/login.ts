@@ -9,6 +9,7 @@ import { InputComponent } from '../../../../shared/components/input/input';
 import { PasswordInputComponent } from '../../../../shared/components/input-password/input-password';
 import { NotificationService } from '../../../../shared/services/notification.service';
 import { login_api_model } from '../../models/login.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class Login implements OnInit, OnDestroy {
 public login_service = inject(LoginService);
 public fb = inject(FormBuilder);
 public notification_service = inject(NotificationService);
+public router = inject(Router);
 
 public subscription : Subscription = new Subscription();
 public login_form : FormGroup;
@@ -57,9 +59,13 @@ const apibody = {
   'email' : this.login_form.value.email,
   'password' : this.login_form.value.password
 }
-const subscribe = this.login_service.login(apibody).subscribe(res=>{
-this.login_api_model = res;
-this.notification_service.notification_subject.next({type : 'success', summary : 'Success', detail : this.login_api_model.message})
+const subscribe = this.login_service.login(apibody).subscribe({
+next:(res)=>{
+  this.login_api_model = res;
+this.notification_service.notification_subject.next({type : 'success', summary : 'Success', detail : this.login_api_model.message});
+this.router.navigate(['/app'])
+},
+error(err) {}
 });
 this.subscription.add(subscribe);
 }
