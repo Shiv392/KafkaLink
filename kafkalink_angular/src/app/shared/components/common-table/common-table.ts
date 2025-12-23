@@ -27,7 +27,7 @@ export class CommonTable implements OnInit, OnChanges {
     if(changes['table_data']){
       if(this.table_data){
         this.table_values = [...this.table_data];
-        const {column_labels, display_columns} = this.table_data_servie.get_dynamic_columns(this.table_values[0], ['url_id'], 'Actions');
+        const {column_labels, display_columns} = this.table_data_servie.get_dynamic_columns(this.table_values[0], ['url_id','updated'], 'Actions');
         this.column_labels = column_labels;
         this.display_columns = display_columns;
       }

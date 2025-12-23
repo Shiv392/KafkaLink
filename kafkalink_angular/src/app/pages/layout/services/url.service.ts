@@ -4,6 +4,7 @@ import { Controllers } from "../../../core/constants/controller.service";
 import { catchError, Observable, throwError } from "rxjs";
 import {environment} from '../../../../environments/environment';
 import { SharedService } from "../../../shared/services/shared.service";
+import { get_urls_apimodel, post_url_apimodel } from "../models/urls.model";
 
 @Injectable({
     providedIn : 'root'
@@ -14,18 +15,18 @@ export class URLService{
     public controller = inject(Controllers);
     public shared_service = inject(SharedService);
 
-    public get_urls() : Observable<any>{
+    public get_urls() : Observable<get_urls_apimodel>{
     const url = environment.api.url + this.controller.url_dashboard.urls;
-    return this.http.get(url, {withCredentials : true}).pipe(
+    return this.http.get<get_urls_apimodel>(url, {withCredentials : true}).pipe(
         catchError((error : HttpErrorResponse)=>{
             return throwError(()=> error.error)
         })
     )
     }
 
-    public add_url(apibody : any) : Observable<any>{
-    const url: string = environment.api + this.controller.url_dashboard.urls;
-    return this.http.post(url, apibody, {withCredentials : true}).pipe(
+    public add_url(apibody : any) : Observable<post_url_apimodel>{
+    const url: string = environment.api.url + this.controller.url_dashboard.urls;
+    return this.http.post<post_url_apimodel>(url, apibody, {withCredentials : true}).pipe(
         catchError((error : HttpErrorResponse)=>{
             return throwError(()=> error.error)
         })

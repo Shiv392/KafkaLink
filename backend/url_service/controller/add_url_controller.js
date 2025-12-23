@@ -6,9 +6,9 @@ const {url, url_password} = req.body;
 const user_id = req.user_id;
 try{
 const result = await add_url_model({ url, user_id, password: url_password });
-const { status_code, message, data } = result;
+const { status_code, message } = result;
 if(status_code == 409){
-    return res.status(409).json({success : false, error : message});
+    return res.status(409).json({error : message});
 }
 
 if(status_code == 201){
@@ -16,7 +16,7 @@ if(status_code == 201){
     io.emit('url_added', {
         message : message
     })
-    return res.status(201).json({success : true, message : message, data : {url_id : data.url_id}})
+    return res.status(201).json({message : message})
 }
 }
 catch(err){

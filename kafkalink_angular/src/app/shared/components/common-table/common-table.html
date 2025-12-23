@@ -36,12 +36,12 @@
                                 *ngFor="let col of display_columns">
                                 <ng-container [ngSwitch]="col">
                                     <!-- Calendar Integrated -->
-                                    <ng-container *ngSwitchCase="'short_link'">
-                                       {{ rowData.short_link }}
+                                    <ng-container *ngSwitchCase="'short_code'">
+                                       {{ rowData.short_code }}
                                     </ng-container>
 
-                                    <ng-container *ngSwitchCase="'original_url'">
-                                        {{ rowData.original_url }}
+                                    <ng-container *ngSwitchCase="'url'">
+                                        {{ rowData.url }}
                                      </ng-container>
 
                                      <ng-container *ngSwitchCase="'visited_count'">
