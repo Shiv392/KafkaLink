@@ -28,14 +28,14 @@ const login_controller = async (req, res) => {
             maxAge: 30 * 24 * 60 * 60 * 1000,
             secure: false, //if we put secure true it will only share cookie for https request 
             //not for localhost runing on http host. 
-            sameSite: 'lax',
+            sameSite: 'None',
             path : '/'
         });
         res.cookie('access_token', access_token, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
             secure: false,
-            sameSite: 'lax',
+            sameSite: 'None',
             path : '/'
         });
         user = { ...user, access_token: access_token };

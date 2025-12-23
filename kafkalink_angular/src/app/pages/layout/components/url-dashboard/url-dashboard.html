@@ -10,5 +10,13 @@
         </div>
     </form>
 </div>
-<app-common-table [table_data]="this.table_data_service.table_data"></app-common-table>
+
+<div class="mt-4">
+    <form [formGroup]="this.search_form">
+        <app-input formControlName="search_input" [placeholder]="'Search...'"></app-input>
+    </form>
+</div>
+<div class="mt-2">
+    <app-common-table [table_data]="urls"></app-common-table>
+</div>
 </div>

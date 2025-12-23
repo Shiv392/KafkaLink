@@ -30,8 +30,7 @@ const add_url_model = async ({ url, password, user_id }) => {
             await redis_client.set(redis_key, 0);
             return {
                 status_code: 201,
-                message: 'URL has been added',
-                data: { url_id: new_url.url_id }
+                message: 'URL has been added'
             };
         }
 
