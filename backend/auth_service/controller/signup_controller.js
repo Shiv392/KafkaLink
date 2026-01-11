@@ -1,10 +1,15 @@
 const signup_model = require('../models/signup_model');
+const{signup_schema} = require('../validations/index')
 
 const signup_controller = async(req, res)=>{
-const {name, email, password} = req.body;
-if(!name || !email || !password){
-    return res.status(400).json({error : 'Name, email and password required'});
+const validate_schema = signup_schema.validate(req.body);
+if(validate_schema.error){
+    return res.status(400).json({
+        error : validate_schema.error.details[0].message
+    })
 }
+
+const {name, email, password} = req.body;
 try{
 const {user_exits, new_user} = await signup_model(name, email, password);
 if(user_exits){

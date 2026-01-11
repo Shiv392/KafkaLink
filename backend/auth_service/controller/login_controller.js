@@ -1,12 +1,16 @@
-const { path } = require("../config/server_config");
 const login_model = require("../models/login_model");
 const jwt_encrypt = require("../utils/jwt_encrypt");
+const {login_schema} = require('../validations/index')
 
 const login_controller = async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-        return res.status(400).json({ error: "Email and password required" });
+    const validate_schema = login_schema.validate(req.body);
+    if(validate_schema.error){
+        return res.status(400).json({
+            error : validate_schema.error.details[0].message
+        })
     }
+
 
     try {
         let { status, user } = await login_model(email, password);
